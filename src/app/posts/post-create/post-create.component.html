@@ -1,0 +1,29 @@
+<mat-card class='my-5 mat-elevation-z5 p-0'>
+    <mat-card-header class="mat-card-header">
+        <mat-card-title class="p-2" *ngIf='!editMode'>ADD POST</mat-card-title>
+        <mat-card-title class="p-2" *ngIf='editMode'>EDIT POST</mat-card-title>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <form #postForm="ngForm" (ngSubmit)="savePost(postForm)">
+        <mat-card-content class="p-3">
+
+            <mat-form-field class="py-3">
+                <input name="title" #title="ngModel" type='text' matInput placeholder="Post Title" [ngModel]='post.title' required>
+                <mat-error *ngIf="title.errors?.required">Title is required.</mat-error>
+            </mat-form-field>
+
+            <ckeditor name="body" #body="ngModel" matInput rows="6" placeholder="Post Body" [ngModel]='post.body' required minlength="20"></ckeditor>
+            <mat-error *ngIf="body.errors?.required && body.touched">Body text is required.</mat-error>
+            <mat-error *ngIf="body.errors?.minlength">A minimum of 20 characters is required.</mat-error>
+
+        </mat-card-content>
+
+        <mat-divider></mat-divider>
+
+        <button mat-raised-button type="submit" class="m-2" color="accent" *ngIf='!editMode'>ADD</button>
+        <button mat-raised-button type="submit" class="m-2" style="background-color: orange;" *ngIf='editMode'>UPDATE</button>
+    </form>
+
+</mat-card>

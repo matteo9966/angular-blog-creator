@@ -1,0 +1,11 @@
+<!-- <mat-toolbar color='primary'> -->
+<mat-toolbar [color]='layoutConfig.toolbarColor'>
+    <button mat-icon-button>
+    <mat-icon (click)='toggleMenu()'>
+      menu
+    </mat-icon>
+  </button>
+    <a routerLink='/'>
+        <h4>{{layoutConfig.toolbarTitle}}</h4>
+    </a>
+</mat-toolbar>

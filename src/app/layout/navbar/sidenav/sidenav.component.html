@@ -1,0 +1,16 @@
+<mat-nav-list>
+    <div *ngFor='let item of sideNavItems'>
+        <a [routerLink]='item.route' mat-list-item (click)='onClose()'>
+            <mat-icon>{{item.icon}}</mat-icon>
+            <span class='pl-3'>{{item.title}}</span>
+        </a>
+    </div>
+    <!-- <a routerLink='/' mat-list-item>
+        <mat-icon>dashboard</mat-icon>
+        <span class='pl-3'>Posts</span>
+    </a>
+    <a routerLink='/' mat-list-item>
+        <mat-icon>dashboard</mat-icon>
+        <span class='pl-3'>Posts</span>
+    </a> -->
+</mat-nav-list>

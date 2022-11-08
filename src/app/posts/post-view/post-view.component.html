@@ -1,0 +1,63 @@
+<mat-card class="my-3">
+    <mat-card-header class="justify-content-center">
+        <mat-card-title>{{post.title}}</mat-card-title>
+        <mat-card-subtitle>{{post.date | date}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content class="my-3">
+        <!-- <p>{{post.body}}</p> -->
+        <div [innerHTML]='post.body'></div>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions class="card-footer">
+        <div>
+            <button mat-icon-button matTooltip='Like'>
+                    <mat-icon *ngIf='post.likes>0' style="color: #338ee9" matBadge={{post.likes}} matBadgeColor='accent' (click)='likePost(post)'>thumb_up</mat-icon>
+                    <mat-icon  *ngIf='post.likes<=0' style="color: #338ee9"matBadgeColor='accent' (click)='likePost(post)'>thumb_up</mat-icon>
+                  </button>
+
+            <button mat-icon-button matTooltip='Dislike'>
+                    <mat-icon *ngIf='post.likes>0' style="color: #f1adbd" matBadge={{post.dislikes}} matBadgeColor='accent' (click)='dislikePost(post)'>thumb_down</mat-icon>
+                    <mat-icon *ngIf='post.likes<=0'  style="color: #f1adbd" matBadgeColor='accent' (click)='dislikePost(post)'>thumb_down</mat-icon>
+                  </button>
+
+            <button mat-icon-button matTooltip='Comments'>
+                    <mat-icon *ngIf='post.comments.length>0' style="color: silver" matBadge={{post.comments.length}} matBadgeColor='accent'>textsms</mat-icon>
+                    <mat-icon *ngIf='post.comments.length<=0' style="color: silver" matBadgeColor='accent'>textsms</mat-icon>
+                  </button>
+        </div>
+
+        <div>
+            <a routerLink='/' mat-icon-button matTooltip='View'>
+                <mat-icon color='primary'>reply</mat-icon>
+            </a>
+
+            <!-- <button mat-icon-button matTooltip='Edit'> -->
+            <a [routerLink]="['/post-edit', post._id]" mat-icon-button matTooltip='Edit'>
+                <mat-icon color='orange'>create</mat-icon>
+            </a>
+
+            <button mat-icon-button matTooltip='Delete' (click)='deletePost(post._id)'>
+                  <mat-icon color='warn'>delete</mat-icon>
+                </button>
+        </div>
+    </mat-card-actions>
+
+</mat-card>
+<form #commentForm='ngForm' (submit)='addComment(commentForm)'>
+    <mat-nav-list>
+        <div *ngFor='let comment of post.comments'>
+            <a mat-list-item>
+      {{comment}}
+    </a>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-nav-list>
+    <textarea matInput #comment='ngModel' ngModel name="comment" required></textarea>
+    <button mat-raised-button type="submit" class="mt-4" color="accent">ADD</button>
+
+</form>
